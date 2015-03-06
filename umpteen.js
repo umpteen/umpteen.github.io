@@ -22,6 +22,13 @@ xhr.onreadystatechange = function()
 xhr.open("GET","dict.txt",true);
 xhr.send();
 
+// returns whether a string is an integer > 0
+// might not work with 0 or 1 index-long non-integer strings
+var isNormalInteger = function (str) {
+    var n = ~~Number(str);
+    return String(n) === str && n >= 0;
+}
+
 var displayResult = function() {
     var numberString = textarea.value;
     var number;
@@ -48,13 +55,6 @@ var displayResult = function() {
     
     console.log("finished! Number: " + numPhrase);
     result.innerText = "Your number: " + numPhrase;
-}
-
-// returns whether a string is an integer > 0
-// might not work with 0 or 1 index-long non-integer strings
-var isNormalInteger = function (str) {
-    var n = ~~Number(str);
-    return String(n) === str && n >= 0;
 }
 
 window.onload = function(e){ 
