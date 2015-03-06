@@ -15,7 +15,7 @@ xhr.onreadystatechange = function()
     if (xhr.readyState==4 && xhr.status==200)
     {
         dict = xhr.responseText.split(" ");
-        console.log("dict received. length: " + data.length);
+        console.log("dict received. length: " + dict.length);
     }
 }
 
