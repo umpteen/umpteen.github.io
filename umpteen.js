@@ -21,10 +21,24 @@ xhr.onreadystatechange = function()
 xhr.open("GET","dict.txt",true);
 xhr.send();
 
-
-var button = document.getElementById("submit");
-var textarea = document.getElementById("number");
-var result = document.getElementById("result");
+window.onload = function(e){ 
+    button = document.getElementById("submit");
+    textarea = document.getElementById("number");
+    result = document.getElementById("result");
+    
+    // add event listener to the button to execute displayResult()
+    if (button.addEventListener) {
+        button.addEventListener("submit", function (evt) {
+                                evt.preventDefault();
+                                displayResult();
+                                }, true);
+    } else {
+        button.attachEvent('onsubmit', function (evt) {
+                           evt.preventDefault();
+                           displayResult();
+                           });
+    }
+}
 
 var displayResult = function() {
     var numberString = textarea.value;
@@ -61,15 +75,4 @@ var isNormalInteger = function (str) {
     return String(n) === str && n >= 0;
 }
 
-// add event listener to the button to execute displayResult()
-if (button.addEventListener) {
-    button.addEventListener("submit", function (evt) {
-                            evt.preventDefault();
-                            displayResult();
-                            }, true);
-} else {
-    button.attachEvent('onsubmit', function (evt) {
-                       evt.preventDefault();
-                       displayResult();
-                       });
-}
+
