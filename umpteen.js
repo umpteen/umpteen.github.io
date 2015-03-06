@@ -34,7 +34,7 @@ var displayResult = function() {
     var number;
     
     // check if number is a positive integer >= 10
-    if(numberString.length > 1 && isNormaInteger(numberString)) {
+    if(numberString.length > 1 && isNormalInteger(numberString)) {
         number = parseInt(numberString);
     } else {
         console.log("invalid string");
@@ -61,17 +61,4 @@ window.onload = function(e){
     button = document.getElementById("submit");
     textarea = document.getElementById("number");
     result = document.getElementById("result");
-    
-    // add event listener to the button to execute displayResult()
-    if (button.addEventListener) {
-        button.addEventListener("submit", function (evt) {
-                                evt.preventDefault();
-                                displayResult();
-                                }, true);
-    } else {
-        button.attachEvent('onsubmit', function (evt) {
-                           evt.preventDefault();
-                           displayResult();
-                           });
-    }
 }
