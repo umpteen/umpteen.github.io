@@ -25,7 +25,8 @@ xhr.send();
 // returns whether a string is an integer > 0
 // might not work with 0 or 1 index-long non-integer strings
 var isNormalInteger = function (str) {
-    var n = ~~Number(str);
+    //var n = ~~Number(str); // ~~ was causing bugs with large numbers
+    var n = Number(str);
     return String(n) === str && n >= 0;
 }
 
