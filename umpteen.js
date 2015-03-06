@@ -1,4 +1,4 @@
-var data = ["unloaded"];
+var dict = ["unloaded"];
 
 // construct XMLHttpRequest variable
 var xhr;
@@ -13,10 +13,8 @@ xhr.onreadystatechange = function()
 {
     if (xhr.readyState==4 && xhr.status==200)
     {
-        document.getElementById("result").innerHTML = xhr.responseText;
-        
-        var data = document.getElementById("dict").innerText.split(" ");
-        
+        dict = xhr.responseText.split(" ");
+        console.log("dict received. length: " + data.length);
     }
 }
 
@@ -25,20 +23,35 @@ xhr.send();
 
 
 var button = document.getElementById("submit");
+var textarea = document.getElementById("number");
 var result = document.getElementById("result");
 
-if (button.addEventListener) {
-    button.addEventListener("submit", function (evt) {
-                            evt.preventDefault();
-                            
-                            result.innerHTML = "yes";
-                            }, true);
-} else {
-    button.attachEvent('onsubmit', function (evt) {
-                       evt.preventDefault();
-                       
-                       result.innerHTML = "yes";
-                       });
+var displayResult = function() {
+    var numberString = textarea.value;
+    var number;
+    
+    // check if number is a positive integer >= 10
+    if(numberString.length > 1 && isNormaInteger(numberString)) {
+        number = parseInt(numberString);
+    } else {
+        console.log("invalid string");
+        return;
+    }
+    
+    // how many digits/words long the number is
+    // = logBase(num, base=dict-length) + 1, rounded down
+    var digitCount = Math.floor(Math.log(number) / Math.log(dict.length) + 1);
+    
+    var numPhrase = "";
+    
+    for(var i = 0; i < digitCount; i++) {
+        var newWord = dict[number % dict.length];
+        numPhrase = newWord = " " + numPhrase;
+        number = Math.floor(number/dict.length);
+    }
+    
+    console.log("finished! Number: " + numPhrase);
+    result.innerText = "Your number: " + numPhrase;
 }
 
 // returns whether a string is an integer > 0
@@ -46,4 +59,17 @@ if (button.addEventListener) {
 var isNormalInteger = function (str) {
     var n = ~~Number(str);
     return String(n) === str && n >= 0;
+}
+
+// add event listener to the button to execute displayResult()
+if (button.addEventListener) {
+    button.addEventListener("submit", function (evt) {
+                            evt.preventDefault();
+                            displayResult();
+                            }, true);
+} else {
+    button.attachEvent('onsubmit', function (evt) {
+                       evt.preventDefault();
+                       displayResult();
+                       });
 }
