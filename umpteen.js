@@ -49,7 +49,7 @@ var displayResult = function() {
     
     for(var i = 0; i < digitCount; i++) {
         var newWord = dict[number % dict.length];
-        numPhrase = newWord = " " + numPhrase;
+        numPhrase = newWord + " " + numPhrase;
         number = Math.floor(number/dict.length);
     }
     
