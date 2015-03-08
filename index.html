@@ -6,8 +6,18 @@
     <script src="umpteen.js"></script>
   </head>
   <body>
-    <textarea id="number" rows=1 placeholder="enter number here!"></textarea>
-    <button id="submit" onclick="displayResult()">Enter</button>
-    <p id="result">result area</p>
+    Number/Phrase:<br>
+    <input id="input" type="text" name="number" placeholder="number/phrase">
+    <br><br>
+    
+    <input id="numchecked" type="radio" name="inputtype" value="number" checked>Number
+    <br>
+    <input id="phrasechecked" type="radio" name="inputtype" value="phrase">Phrase
+    <br><br>
+    
+    <input type="submit" value="Submit" onclick="displayResult()">
+    <br><br>
+    
+    <p id="result">Loading dictionary...</p>
   </body>
 </html>
