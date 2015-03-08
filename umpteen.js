@@ -120,7 +120,7 @@ var displayResult = function() {
 window.onload = function(e){ 
     button = document.getElementById("submit");
     input = document.getElementById("input");
-    radNum = document.getElementById("input");
-    radPhrase = document.getElementById("input");
+    radNum = document.getElementById("numchecked");
+    radPhrase = document.getElementById("phrasechecked");
     result = document.getElementById("result");
 }
