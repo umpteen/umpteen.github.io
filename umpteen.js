@@ -1,5 +1,5 @@
 var dict = ["unloaded"];
-var button, input, radNum, radPhrase, result;
+var button, input, result;
 
 // construct XMLHttpRequest variable
 var xhr;
@@ -102,15 +102,26 @@ var getNumResult = function(input) {
 }
 
 var displayResult = function() {
-    var inputString = input.value;
+    var inputString = input.value.trim();
     var resultString;
     
-    if(radPhrase.checked) {
+    var phraseEntered = false;
+    var numEntered = false;
+    
+    if(inputString.match("[a-z]")) {
+        phraseEntered = true;
+    }
+    
+    if(inputString.match("[0-9]")) {
+        numEntered = true;
+    }
+    
+    if(phraseEntered && !numEntered) {
         resultString = "" + getNumResult(inputString);
-    } else if(radNum.checked) {
+    } else if(numEntered && !phraseEntered) {
         resultString = getPhraseResult(inputString);
     } else {
-        resultString = "Checkbox Segmentation fault (core dumped)";
+        resultString = "Segmentation fault (core dumped) please enter a valid input";
     }
     
     console.log("finished! Result: " + resultString);
@@ -120,7 +131,5 @@ var displayResult = function() {
 window.onload = function(e){ 
     button = document.getElementById("submit");
     input = document.getElementById("input");
-    radNum = document.getElementById("numchecked");
-    radPhrase = document.getElementById("phrasechecked");
     result = document.getElementById("result");
 }
