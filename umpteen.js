@@ -61,8 +61,8 @@ var getPhraseResult = function(input) {
     if(input.length > 1 && isNormalInteger(input)) {
         number = parseInt(input);
     } else {
-        console.log("invalid string");
-        return "Invalid string";
+        console.log("invalid number");
+        return "Invalid number";
     }
     
     // how many digits/words long the number is
@@ -95,7 +95,7 @@ var getNumResult = function(input) {
             return "invalid word " + word;
         }
         
-        decodedNum += num * Math.pow(dict.length, i);
+        decodedNum += num * Math.pow(dict.length, words.length - i - 1);
     }
     
     return decodedNum;
