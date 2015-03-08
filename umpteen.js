@@ -102,13 +102,13 @@ var getNumResult = function(input) {
 }
 
 var displayResult = function() {
-    var input = input.value;
+    var inputString = input.value;
     var resultString;
     
     if(radPhrase.checked) {
-        resultString = "" + getNumResult(input);
+        resultString = "" + getNumResult(inputString);
     } else if(radNum.checked) {
-        resultString = getPhraseResult(input);
+        resultString = getPhraseResult(inputString);
     } else {
         resultString = "Checkbox Segmentation fault (core dumped)";
     }
