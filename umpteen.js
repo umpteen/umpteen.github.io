@@ -95,7 +95,7 @@ var getNumResult = function(input) {
             return "invalid word " + word;
         }
         
-        decodedNum += num * pow(dict.length, i);
+        decodedNum += num * Math.pow(dict.length, i);
     }
     
     return decodedNum;
