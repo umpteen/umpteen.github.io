@@ -1,0 +1,10 @@
+body {
+  font-family: sans-serif;
+}
+
+/** for anything that needs to be centered horizontally **/
+.center_horizontally {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0%);
+}
