@@ -102,7 +102,7 @@ var getNumResult = function(input) {
 }
 
 var displayResult = function() {
-    var inputString = input.value.trim();
+    var inputString = input.value.trim().toLowerCase();
     var resultString;
     
     var phraseEntered = false;
