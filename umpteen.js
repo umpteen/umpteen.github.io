@@ -1,5 +1,5 @@
 var dict = ["unloaded"];
-var button, textarea, result;
+var button, input, radNum, radPhrase, result;
 
 // construct XMLHttpRequest variable
 var xhr;
@@ -16,6 +16,8 @@ xhr.onreadystatechange = function()
     {
         dict = xhr.responseText.split(" ");
         console.log("dict received. length: " + dict.length);
+        
+        if(result.innerText) result.innerText = "Dictionary loaded!";
     }
 }
 
@@ -30,16 +32,37 @@ var isNormalInteger = function (str) {
     return String(n) === str && n >= 0;
 }
 
-var displayResult = function() {
-    var numberString = textarea.value;
+Array.prototype.binaryIndexOf = function(val) {
+    var minIndex = 0;
+    var maxIndex = this.length;
+    
+    while(minIndex !== maxIndex) {
+      var currIndex = Math.floor((maxIndex + minIndex)/2);
+      var currVal = this[currIndex];
+      
+      if(currVal > val) {
+          if(maxIndex === currIndex) {break;}
+          maxIndex = currIndex; 
+      } else if(currVal < val) {
+          if(minIndex === currIndex) {break;}
+          minIndex = currIndex;
+      } else {
+          return currIndex;
+      }
+    }
+    
+    return -1;
+};
+
+var getPhraseResult = function(input) {
     var number;
     
     // check if number is a positive integer >= 10
-    if(numberString.length > 1 && isNormalInteger(numberString)) {
-        number = parseInt(numberString);
+    if(input.length > 1 && isNormalInteger(input)) {
+        number = parseInt(input);
     } else {
         console.log("invalid string");
-        return;
+        return "Invalid string";
     }
     
     // how many digits/words long the number is
@@ -54,12 +77,50 @@ var displayResult = function() {
         number = Math.floor(number/dict.length);
     }
     
-    console.log("finished! Number: " + numPhrase);
-    result.innerText = "Your number: " + numPhrase;
+    return numPhrase;
+}
+
+
+var getNumResult = function(input) {
+    var words = input.split(" ");
+    
+    var decodedNum = 0;
+    
+    for(var i = 0; i < words.length; i++) {
+        var word = words[i];
+        var num = dict.binaryIndexOf(word);
+        
+        if(num === -1) {
+            console.log("invalid word " + word);
+            return "invalid word " + word;
+        }
+        
+        decodedNum += num * pow(dict.length, i);
+    }
+    
+    return decodedNum;
+}
+
+var displayResult = function() {
+    var input = input.value;
+    var resultString;
+    
+    if(radPhrase.checked) {
+        resultString = "" + getNumResult(input);
+    } else if(radNum.checked) {
+        resultString = getPhraseResult(input);
+    } else {
+        resultString = "Checkbox Segmentation fault (core dumped)";
+    }
+    
+    console.log("finished! Result: " + resultString);
+    result.innerText = "Your result: " + resultString;
 }
 
 window.onload = function(e){ 
     button = document.getElementById("submit");
-    textarea = document.getElementById("number");
+    input = document.getElementById("input");
+    radNum = document.getElementById("input");
+    radPhrase = document.getElementById("input");
     result = document.getElementById("result");
 }
